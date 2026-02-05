@@ -1,0 +1,8 @@
+aws-cdk-lib
+constructs
+pytest
+pytest-cov
+moto
+stripe
+python-dotenv
+

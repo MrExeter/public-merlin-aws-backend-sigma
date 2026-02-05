@@ -1,6 +1,7 @@
 # Merlin Sigma — Public Reference Implementation (production credentials removed)
 
-# AWS BaaS (API Gateway + Lambda + DynamoDB + Cognito)
+## AWS BaaS (API Gateway + Lambda + DynamoDB + Cognito)
+
 
 A modular, versioned AWS-native Backend-as-a-Service foundation:
 
@@ -22,6 +23,21 @@ All production credentials, account-specific configuration, and alert routing ha
 
 - AWS credentials (`AWS_PROFILE`, `CDK_DEFAULT_ACCOUNT`, `CDK_DEFAULT_REGION`)
 - AWS CDK bootstrapped in target account/region
+
+---
+
+## Running Tests
+Tests run fully locally using mocked AWS and dummy credentials.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+
+pytest
+```
 
 ---
 
