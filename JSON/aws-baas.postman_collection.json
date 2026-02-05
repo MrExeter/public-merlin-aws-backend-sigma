@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "AWS BaaS – v1",
+    "_postman_id": "baas-v1-collection",
+    "description": "Versioned API with auto-refreshing Cognito client-credentials token",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const now = Math.floor(Date.now()/1000);",
+          "const token = pm.environment.get('ACCESS_TOKEN');",
+          "const exp = parseInt(pm.environment.get('ACCESS_TOKEN_EXP') || '0', 10);",
+          "if (!token || (exp - 60) < now) {",
+          "  const domain = pm.environment.get('COGNITO_DOMAIN');",
+          "  const clientId = pm.environment.get('CLIENT_ID');",
+          "  const clientSecret = pm.environment.get('CLIENT_SECRET');",
+          "  const scope = pm.environment.get('SCOPE');",
+          "  pm.sendRequest({",
+          "    url: `${domain}/oauth2/token`,",
+          "    method: 'POST',",
+          "    header: { 'Content-Type': 'application/x-www-form-urlencoded' },",
+          "    body: {",
+          "      mode: 'urlencoded',",
+          "      urlencoded: [",
+          "        { key: 'grant_type', value: 'client_credentials' },",
+          "        { key: 'client_id', value: clientId },",
+          "        { key: 'client_secret', value: clientSecret },",
+          "        { key: 'scope', value: scope }",
+          "      ]",
+          "    }",
+          "  }, (err, res) => {",
+          "    if (err) {",
+          "      console.log('Token request failed', err);",
+          "      return;",
+          "    }",
+          "    if (res.code !== 200) {",
+          "      console.log('Token request failed', res.text());",
+          "      return;",
+          "    }",
+          "    const data = res.json();",
+          "    pm.environment.set('ACCESS_TOKEN', data.access_token);",
+          "    pm.environment.set('ACCESS_TOKEN_EXP', (now + (data.expires_in || 3600)).toString());",
+          "  });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{ACCESS_TOKEN}}", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "POST /v1/usage/log",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{BASE_URL}}/v1/usage/log", "host": ["{{BASE_URL}}"], "path": ["v1","usage","log"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": \"{{USER_ID}}\",\n  \"token_count\": {{TOKEN_COUNT}},\n  \"endpoint\": \"/v1/usage/log\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('status is 201/200', function(){",
+              "  pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+              "});",
+              "console.log('Response:', pm.response.text());"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /v1/usage/aggregate",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{BASE_URL}}/v1/usage/aggregate?start={{START}}&end={{END}}",
+          "host": ["{{BASE_URL}}"],
+          "path": ["v1", "usage", "aggregate"],
+          "query": [
+            { "key": "start", "value": "{{START}}" },
+            { "key": "end",   "value": "{{END}}" }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
+              "const data = pm.response.json();",
+              "pm.test('has tenant_id and totals', () => {",
+              "  pm.expect(data).to.have.property('tenant_id');",
+              "  pm.expect(data).to.have.property('total_tokens');",
+              "});",
+              "console.log('Aggregate:', data);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

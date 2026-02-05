@@ -1,0 +1,20 @@
+{
+  "id": "evt_test_subscription_deleted",
+  "type": "customer.subscription.deleted",
+  "created": 1700000002,
+  "data": {
+    "object": {
+      "customer": "cus_xyz789",
+      "status": "canceled",
+      "items": {
+        "data": [
+          {
+            "plan": {
+              "id": "enterprise-plan"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

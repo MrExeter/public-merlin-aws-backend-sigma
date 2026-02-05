@@ -1,0 +1,182 @@
+.
+├── cdk
+│   ├── app.py
+│   ├── cdk.context.json
+│   ├── cdk.json
+│   ├── __init__.py
+│   ├── requirements.txt
+│   ├── response.json
+│   ├── stacks
+│   │   ├── auth_api_stack.py
+│   │   ├── auth_stack.py
+│   │   ├── billing_lambda_stack.py
+│   │   ├── chatbot_alert_stack.py
+│   │   ├── debug_context_stack.py
+│   │   ├── infra_alerts_stack.py
+│   │   ├── __init__.py
+│   │   ├── metering_stack.py
+│   │   ├── plans_stack.py
+│   │   ├── quota_stack.py
+│   │   ├── slack_alerts_test_stack.py
+│   │   ├── tenants_stack.py
+│   │   ├── usage_api_stack.py
+│   │   ├── usage_lambda_stack.py
+│   │   └── usage_stack.py
+│   ├── test_context.py
+│   └── tests
+│       ├── __init__.py
+│       ├── test_api_versioning.py
+│       └── test_chatbot_alert_stack.py
+├── cdk.json
+├── dist
+│   ├── handler.py
+│   └── log_usage.zip
+├── docs
+│   ├── architecture.md
+│   ├── auth-flows.md
+│   ├── costs.md
+│   ├── metering-runbook.md
+│   ├── ops-troubleshooting.md
+│   ├── security.md
+│   ├── stacks
+│   │   ├── auth.md
+│   │   ├── metering.md
+│   │   ├── tenants.md
+│   │   └── usage.md
+│   ├── tables.md
+│   └── versioning.md
+├── env_test.py
+├── JSON
+│   ├── aws-baas.postman_collection.json
+│   └── __init__.py
+├── project_structure.txt
+├── pytest.ini
+├── README.md
+├── requirements.txt
+├── scripts
+│   ├── check_api_versioning.sh
+│   ├── __init__.py
+│   └── temp.sh
+├── services
+│   ├── auth
+│   │   ├── crud.py
+│   │   ├── __init__.py
+│   │   ├── lambdas
+│   │   │   ├── admin_handler.py
+│   │   │   ├── __init__.py
+│   │   │   ├── post_confirmation.py
+│   │   │   ├── pre_signup.py
+│   │   │   └── pre_token_generation.py
+│   │   ├── models.py
+│   │   └── tests
+│   │       ├── __init__.py
+│   │       ├── test_auth_api_stack.py
+│   │       ├── test_auth_stack.py
+│   │       ├── test_crud.py
+│   │       ├── test_post_confirmation.py
+│   │       └── test_pre_signup.py
+│   ├── billing
+│   │   ├── __init__.py
+│   │   ├── lambdas
+│   │   │   ├── __init__.py
+│   │   │   └── subscribe_lambda.py
+│   │   ├── stripe_webhook_lambda.py
+│   │   └── tests
+│   │       ├── conftest.py
+│   │       ├── __init__.py
+│   │       ├── test_subscribe_handler.py
+│   │       ├── test_webhook_env.py
+│   │       ├── test_webhook_handler.py
+│   │       └── test_webhook_signature.py
+│   ├── common
+│   │   ├── ddb_utils.py
+│   │   ├── __init__.py
+│   │   └── time_utils.py
+│   ├── conftest.py
+│   ├── __init__.py
+│   ├── metering
+│   │   ├── __init__.py
+│   │   ├── lambdas
+│   │   │   ├── aggregate
+│   │   │   │   ├── handler.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── __init__.py
+│   │   │   └── log_usage
+│   │   │       ├── handler.py
+│   │   │       └── __init__.py
+│   │   └── tests
+│   │       ├── conftest.py
+│   │       ├── __init__.py
+│   │       ├── test_aggregate_handler_component.py
+│   │       ├── test_aggregate_handler_unit.py
+│   │       ├── test_aggregator.py
+│   │       ├── test_log_usage_events.py
+│   │       └── test_metering_stack.py
+│   ├── plans
+│   │   ├── crud.py
+│   │   ├── __init__.py
+│   │   ├── lambdas
+│   │   │   ├── create_plan.py
+│   │   │   ├── __init__.py
+│   │   │   └── subscribe_user.py
+│   │   ├── models.py
+│   │   └── tests
+│   │       ├── conftest.py
+│   │       ├── __init__.py
+│   │       ├── test_crud.py
+│   │       └── test_handler.py
+│   ├── quota
+│   │   ├── enforcer.py
+│   │   ├── __init__.py
+│   │   ├── plans_limits.py
+│   │   └── tests
+│   │       ├── conftest.py
+│   │       ├── __init__.py
+│   │       ├── test_enforcer.py
+│   │       └── test_quota_stack.py
+│   ├── subscriptions
+│   │   ├── crud.py
+│   │   ├── __init__.py
+│   │   ├── lambdas
+│   │   │   ├── __init__.py
+│   │   │   └── subscribe_user.py
+│   │   ├── models.py
+│   │   └── tests
+│   │       ├── __init__.py
+│   │       ├── test_crud.py
+│   │       └── test_handler.py
+│   └── usage
+│       ├── aggregation.py
+│       ├── crud.py
+│       ├── __init__.py
+│       ├── lambdas
+│       │   ├── aggregate
+│       │   │   ├── handler.py
+│       │   │   └── __init__.py
+│       │   ├── __init__.py
+│       │   └── log_usage
+│       │       ├── handler.py
+│       │       └── __init__.py
+│       ├── models.py
+│       └── tests
+│           ├── conftest.py
+│           ├── __init__.py
+│           ├── test_aggregation.py
+│           ├── test_crud.py
+│           ├── test_handler_integration.py
+│           ├── test_handler.py
+│           ├── test_handler_quota.py
+│           ├── test_hard_quota_unit.py
+│           ├── test_idempotency.py
+│           └── test_subscription_gate.py
+├── shared
+│   ├── models
+│   │   └── __init__.py
+│   └── utils
+│       ├── __init__.py
+│       └── json_encoders.py
+├── temp
+│   └── Dockerfile
+└── usage_lambda_stack.template.json
+
+38 directories, 141 files

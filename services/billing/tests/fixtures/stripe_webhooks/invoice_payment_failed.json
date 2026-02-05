@@ -1,0 +1,20 @@
+{
+  "id": "evt_test_payment_failed",
+  "type": "invoice.payment_failed",
+  "created": 1700000001,
+  "data": {
+    "object": {
+      "customer": "cus_def456",
+      "status": "past_due",
+      "items": {
+        "data": [
+          {
+            "plan": {
+              "id": "pro-plan"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

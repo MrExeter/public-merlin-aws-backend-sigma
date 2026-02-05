@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv*/
+
+services/**/lambdas/python/
+
+
+.env
+.env.local
+
+# PyCharm
+.idea/
+
+# Test/coverage
+.cache/
+.coverage
+htmlcov/
+pytestdebug.log
+
+# AWS CDK
+cdk.out/

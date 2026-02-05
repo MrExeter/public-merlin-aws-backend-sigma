@@ -1,0 +1,12 @@
+{
+  "stage": "dev",
+  "slackWorkspaceId": "WORKSPACE_ID",
+  "slackChannelIds": {
+    "billing-alerts": "CHANNEL_ID",
+    "quota-alerts": "CHANNEL_ID",
+    "usage-alerts": "CHANNEL_ID",
+    "app-errors": "CHANNEL_ID",
+    "security-alerts": "CHANNEL_ID",
+    "devops": "CHANNEL_ID"
+  }
+}

@@ -1,0 +1,41 @@
+# virtual envs & tooling
+.venv
+.env
+.poetry
+node_modules
+package-lock.json
+pnpm-lock.yaml
+
+.venv
+**/.venv/**
+**/.venv*/**
+cdk/.venv-cdk
+
+# git & cdk output
+.git
+cdk.out
+.idea
+.vscode
+.DS_Store
+
+# python build/test caches
+**/__pycache__/**
+**/*.pyc
+**/*.pyo
+.pytest_cache
+**/.pytest_cache/**
+.mypy_cache
+**/.mypy_cache/**
+.ruff_cache
+.coverage
+htmlcov
+dist
+build
+
+# project tests (don’t ship in Lambda)
+tests
+**/tests/**
+services/**/tests/**
+
+# unused billing helper folder (since nothing imports it)
+services/billing/lambdas/python/**

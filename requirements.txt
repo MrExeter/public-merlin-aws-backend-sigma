@@ -1,0 +1,7 @@
+stripe
+# Project dependencies
+boto3
+pydantic
+pytest
+moto
+aws-lambda-powertools
